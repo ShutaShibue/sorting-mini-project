@@ -1,17 +1,12 @@
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import java.math.BigInteger;
 import java.util.Comparator;
 import org.junit.jupiter.api.Test;
 
 /**
  * Tests of Sorter objects.
  *
- * @author Your Name
+ * @author Shuta Shibue
  */
 public class SortTester {
 
