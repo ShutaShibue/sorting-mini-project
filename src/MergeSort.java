@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -34,24 +33,25 @@ public class MergeSort implements Sorter {
 
 
   public <T> void sort(T[] vals, Comparator<? super T> comparator) {
-    sort(vals, comparator, 0, vals.length - 1);
+    sort(vals, comparator, 0, vals.length);
     // STUB
   } // sort(T[], Comparator<? super T>
 
   /**
-   * @param vals array
-   * @param comparator Comparator
-   * @param lo low end of index, inclusive
-   * @param mid midpoint
-   * @param hi hi end of index, inclusive
+   * 
+   * @param vals Arrays to sort
+   * @param comparator Comparator to compare elements of vals
+   * @param lo starting index, inclusive
+   * @param hi ending index, exclusive
    */
   public <T> void sort(T[] vals, Comparator<? super T> comparator, int lo, int hi) {
 
-    if (hi > lo) {
+    if (hi - lo > 1) {
       int m = (lo + hi) / 2;
       // sort left half and then right half
+      System.out.println("left: " + lo + " mid: " + m + " right: " + hi);
       sort(vals, comparator, lo, m);
-      sort(vals, comparator, m + 1, hi);
+      sort(vals, comparator, m, hi);
       merge(vals, lo, m, hi, comparator);
     }
 
@@ -62,34 +62,26 @@ public class MergeSort implements Sorter {
    *
    * Preconditions: Each subarray is sorted accorting to comparator.
    */
-  @SuppressWarnings("unchecked")
   static <T> void merge(T[] vals, int lo, int mid, int hi, Comparator<? super T> comparator) {
-    // STUB
-    int i = 0;
-    int loi = lo;
-    int hii = mid;
-    T[] temp = vals.clone();
+    int l = 0;
+    int r = 0;
+    int v = lo;
 
-    while (loi < mid && hii < hi) {
-      if (comparator.compare(temp[loi], temp[hii]) > 0) {
-        vals[i] = temp[hii];
-        hii++;
-        i++;
+    T[] left = Arrays.copyOfRange(vals, lo, mid);
+    T[] right = Arrays.copyOfRange(vals, mid, hi);
+
+    while (l < left.length && r < right.length) {
+      if (comparator.compare(left[l], right[r]) < 0) {
+        vals[v++] = left[l++];
       } else {
-        vals[i] = temp[loi];
-        loi++;
-        i++;
+        vals[v++] = right[r++];
       }
     }
-    while (hii < hi) {
-      vals[i] = temp[hii];
-      i++;
-      hii++;
+    while (l < left.length) {
+      vals[v++] = left[l++];
     }
-    while (hii < hi) {
-      vals[i] = temp[loi];
-      i++;
-      loi++;
+    while (r < right.length) {
+      vals[v++] = right[r++];
     }
   } // merge
 
